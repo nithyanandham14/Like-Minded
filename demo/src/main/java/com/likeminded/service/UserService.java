@@ -5,6 +5,7 @@ import com.likeminded.dto.UserResponse;
 import com.likeminded.model.User;
 import com.likeminded.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponse registerUser(UserRegisterRequest request) {
 
@@ -19,10 +21,15 @@ public class UserService {
             throw new RuntimeException("Email already registered");
         }
 
+        if (request.getPassword() == null || request.getPassword().isBlank()) {
+            throw new RuntimeException("Password cannot be null or empty");
+        }
+
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .college(request.getCollege())
+                .password(passwordEncoder.encode(request.getPassword())) // ✅ FIX
                 .role("USER")
                 .build();
 

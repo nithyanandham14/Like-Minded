@@ -26,5 +26,6 @@ public class User {
     private String college;
 
     private String role;
+    @Column(nullable = false)
     private String password;
 }
