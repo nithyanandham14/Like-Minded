@@ -2,6 +2,7 @@ package com.likeminded.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.jspecify.annotations.Nullable;
 
 @Entity
 @Table(name = "users")
@@ -24,5 +25,6 @@ public class User {
 
     private String college;
 
-    private String role; // USER
+    private String role;
+    private String password;
 }
