@@ -3,9 +3,12 @@ package com.likeminded.security;
 import com.likeminded.model.User;
 import com.likeminded.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,4 +31,5 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .roles(user.getRole()) // USER / VENDOR
                 .build();
     }
+
 }
