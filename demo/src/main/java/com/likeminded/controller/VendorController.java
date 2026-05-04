@@ -1,5 +1,6 @@
 package com.likeminded.controller;
 
+import com.likeminded.dto.VendorDashboardResponse;
 import com.likeminded.dto.VendorRegisterRequest;
 import com.likeminded.dto.VendorResponse;
 import com.likeminded.service.VendorService;
@@ -34,5 +35,12 @@ public class VendorController {
 
         String userId = authentication.getName();
         return vendorService.getVendorProfile(userId);
+    }
+    @GetMapping("/dashboard")
+    public VendorDashboardResponse getDashboard(Authentication authentication) {
+
+        String vendorId = authentication.getName();
+
+        return vendorService.getDashboard(vendorId);
     }
 }

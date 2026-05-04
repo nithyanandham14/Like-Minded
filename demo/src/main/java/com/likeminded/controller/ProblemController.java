@@ -2,6 +2,7 @@ package com.likeminded.controller;
 
 import com.likeminded.dto.ProblemCreateRequest;
 import com.likeminded.dto.ProblemResponse;
+import com.likeminded.model.Problem;
 import com.likeminded.service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -43,5 +44,10 @@ public class ProblemController {
     public List<ProblemResponse> getVendorProblems(Authentication authentication) {
         String vendorId = authentication.getName();
         return problemService.getVendorProblems(vendorId);
+    }
+    @GetMapping("{problemid}")
+    public ProblemResponse getProblem(@PathVariable String problemid)
+    {
+     return problemService.getProblem(problemid);
     }
 }

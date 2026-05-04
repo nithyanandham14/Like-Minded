@@ -11,4 +11,9 @@ public interface ProblemRepository extends JpaRepository<Problem, String> {
     List<Problem> findByStatus(ProblemStatus status);
 
     List<Problem> findByVendorId(String vendorId);
+
+    int countByVendorId(String vendorId);
+
+    int countByVendorIdAndStatus(String vendorId, String open);
+
 }

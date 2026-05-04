@@ -1,8 +1,12 @@
 package com.likeminded.service;
 
+import com.likeminded.dto.UserDashboardResponse;
 import com.likeminded.dto.UserRegisterRequest;
 import com.likeminded.dto.UserResponse;
 import com.likeminded.model.User;
+import com.likeminded.repository.PaymentRepository;
+import com.likeminded.repository.SelectionRepository;
+import com.likeminded.repository.SubmissionRepository;
 import com.likeminded.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +18,9 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PaymentRepository paymentRepository;
+    private final SelectionRepository selectionRepository;
+    private final SubmissionRepository submissionRepository;
 
     public UserResponse registerUser(UserRegisterRequest request) {
 
@@ -41,5 +48,23 @@ public class UserService {
                 .email(saved.getEmail())
                 .college(saved.getCollege())
                 .build();
+    }
+
+    public UserDashboardResponse getDashboard(String userId) {
+        UserDashboardResponse dashboard = new UserDashboardResponse();
+
+        int submissions = submissionRepository.countBySubmittedByUserId(userId);
+
+        // total wins
+        int wins = selectionRepository.countByWinnerUserId(userId);
+
+        // earnings
+        Double earnings = paymentRepository.sumAmountByWinnerUserId(userId);
+
+        dashboard.setSubmissions(submissions);
+        dashboard.setWins(wins);
+        dashboard.setEarnings(earnings != null ? earnings : 0);
+
+        return dashboard;
     }
 }

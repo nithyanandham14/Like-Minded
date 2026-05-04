@@ -12,4 +12,7 @@ public interface SubmissionRepository extends JpaRepository<Submission, String> 
     List<Submission> findByTeamId(String teamId);
 
     boolean existsByProblemIdAndTeamId(String problemId, String teamId);
+
+
+    int countBySubmittedByUserId(String userId);
 }

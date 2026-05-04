@@ -10,4 +10,6 @@ public interface SelectionRepository extends JpaRepository<Selection, String> {
     boolean existsByProblemId(String problemId);
 
     Optional<Selection> findByProblemId(String problemId);
+
+    int countByWinnerUserId(String winnerUserId);
 }

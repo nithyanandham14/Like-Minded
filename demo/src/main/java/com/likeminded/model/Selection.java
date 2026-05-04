@@ -33,4 +33,6 @@ public class Selection {
     void onSelect() {
         this.selectedAt = LocalDateTime.now();
     }
+    @Column(nullable = false)
+    private String winnerUserId;
 }

@@ -61,4 +61,18 @@ public class ProblemService {
                 .status(problem.getStatus())
                 .build();
     }
+
+    public ProblemResponse getProblem(String problemid) {
+
+        Problem problem = problemRepository.findById(problemid)
+                .orElseThrow(() -> new RuntimeException("Problem not found"));
+
+        return ProblemResponse.builder()
+                .problemId(problem.getId())
+                .title(problem.getTitle())
+                .description(problem.getDescription())
+                .deadline(problem.getDeadline())
+                .status(problem.getStatus())
+                .build();
+    }
 }

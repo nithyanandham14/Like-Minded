@@ -32,6 +32,7 @@ public class VendorProfile {
     @Column(nullable = false, unique = true)
     private String contactEmail;
 
+    @Builder.Default
     @Column(nullable = false)
     private BigDecimal walletBalance = BigDecimal.ZERO;
 
